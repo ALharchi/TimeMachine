@@ -57,14 +57,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Conditions\HumidityComponent.cs" />
+    <Compile Include="Components\Simulation\BuildWorldComponent.cs" />
+    <Compile Include="Components\Simulation\SolverComponent.cs" />
+    <Compile Include="Components\Simulation\ViewerComponent.cs" />
     <Compile Include="Engine\Property.cs" />
+    <Compile Include="Engine\Solver.cs" />
     <Compile Include="Engine\Voxel.cs" />
     <Compile Include="TimeMachine.Info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Simulation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
