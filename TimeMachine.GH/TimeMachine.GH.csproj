@@ -56,13 +56,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Conditions\HumidityComponent.cs" />
+    <Compile Include="Components\Setup\PropertyComponent.cs" />
     <Compile Include="Components\Simulation\BuildWorldComponent.cs" />
-    <Compile Include="Components\Simulation\SolverComponent.cs" />
+    <Compile Include="Components\Simulation\TimeMachineComponent.cs" />
     <Compile Include="Components\Simulation\ViewerComponent.cs" />
     <Compile Include="Engine\Property.cs" />
-    <Compile Include="Engine\Solver.cs" />
+    <Compile Include="Engine\TimeMachine.cs" />
     <Compile Include="Engine\Voxel.cs" />
+    <Compile Include="Engine\World.cs" />
     <Compile Include="TimeMachine.Info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimeMachine.GH.Engine
 {
-    class Solver
+    public class TimeMachine
     {
     }
 }
