@@ -7,26 +7,62 @@ using Rhino.Geometry;
 
 namespace TimeMachine.GH
 {
-    public struct Voxel
+    public class Voxel
     {
         public Point3d Position;
         public List<Property> Properties;
-        public List<double> Values;
+        public int LifeSpan { get; set; }
         public bool IsAlive { get; set; }
         public int Age { get; set; }
 
-        public Voxel(Point3d position, List<Property> properties)
+        public Voxel(Point3d position, List<Property> properties, int LifeSpan)
         {
             this.Position = position;
             this.Properties = properties;
-            this.Values = new List<double>();
+            this.LifeSpan = LifeSpan;
             this.IsAlive = true;
             this.Age = 0;
         }
 
-        public void Kill()
+
+        public void ComputeNextState()
         {
-            this.IsAlive = false;
+            // If voxel is dead, we don't do anything
+            if (!IsAlive)
+            {
+                return;
+            }
+
+            // We kill the voxel if any property value is outside the threshold and killing is activated
+            foreach (Property p in Properties)
+            {
+                if (p.KillThreshold)
+                {
+                    if (p.Value < p.MinValue || p.Value > p.MaxValue)
+                    {
+                        this.IsAlive = false;
+                    }
+                }
+            }
+
+        }
+
+        public void Update()
+        {
+
+        }
+
+        public Voxel Clone()
+        {
+            List<Property> clonedProperties = new List<Property>();
+
+            foreach (Property pr in this.Properties)
+            {
+                Property clonedProperty = pr.Clone();
+                clonedProperties.Add(clonedProperty);
+            }
+
+            return new Voxel(new Point3d(this.Position), clonedProperties, this.LifeSpan);
         }
     }
 }

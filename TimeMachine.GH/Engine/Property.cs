@@ -6,28 +6,26 @@ using System.Threading.Tasks;
 
 namespace TimeMachine.GH
 {
-    public struct Property
+    public class Property
     {
         public string Name;
         public double Value;
         public double MinValue;
         public double MaxValue;
+        public bool KillThreshold;
 
-        public Property(string name, double value, double minValue, double maxValue)
+        public Property(string name, double value, double minValue, double maxValue, bool killThreshold)
         {
             this.Name = name;
             this.Value = value;
             this.MinValue = minValue;
             this.MaxValue = maxValue;
+            this.KillThreshold = killThreshold;
         }
 
-        /// <summary>
-        /// Getting a deep copy of the property
-        /// </summary>
-        /// <returns></returns>
         public Property Clone()
         {
-            return new Property(this.Name, this.Value, this.MinValue, this.MaxValue);
+            return new Property(this.Name, this.Value, this.MinValue, this.MaxValue, this.KillThreshold);
         }
     }
 }
