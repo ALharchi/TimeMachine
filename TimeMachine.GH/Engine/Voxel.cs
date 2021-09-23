@@ -32,7 +32,7 @@ namespace TimeMachine.GH
             {
                 return;
             }
-
+            /*
             // We kill the voxel if any property value is outside the threshold and killing is activated
             foreach (Property p in Properties)
             {
@@ -44,7 +44,7 @@ namespace TimeMachine.GH
                     }
                 }
             }
-
+            */
         }
 
         public void Update()

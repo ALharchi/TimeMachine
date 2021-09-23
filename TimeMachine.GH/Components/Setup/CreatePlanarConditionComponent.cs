@@ -8,14 +8,15 @@ namespace TimeMachine.GH
 {
     public class CreatePlanarConditionComponent : GH_Component
     {
-        public CreatePlanarConditionComponent() : base("Create Planar Condition", "Create Planar Condition", "Create a planar condition", "TimeMachine", "Setup") { }
-        protected override System.Drawing.Bitmap Icon { get { return null; } }
+        public CreatePlanarConditionComponent() : base("Create Planar Condition", "Create Planar Condition", "Create a planar condition.", "TimeMachine", "Setup") { }
+        protected override System.Drawing.Bitmap Icon { get { return Properties.Resources.iconCreatePlanarCondition; } }
         public override Guid ComponentGuid { get { return new Guid("41b98423-35ba-4462-a71d-9710a69a1d40"); } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.secondary; } }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("Name", "Name", "Condition Name", GH_ParamAccess.item, "Default");
-            pManager.AddTextParameter("Target Property", "Target Property", "Specify which property is affected by this condition.", GH_ParamAccess.item , "Default");
+            pManager.AddTextParameter("Target Property", "Target Property", "Specify which property is affected by this condition.", GH_ParamAccess.item, "Default");
             pManager.AddBrepParameter("Target Geometry", "Target Geometry", "Target Geometry", GH_ParamAccess.item);
             pManager.AddRectangleParameter("Source", "Source", "Source of the condition", GH_ParamAccess.item);
             pManager.AddVectorParameter("Direction", "Direction", "Condition Direction", GH_ParamAccess.item);
@@ -36,9 +37,9 @@ namespace TimeMachine.GH
 
             Line extrDir = new Line(Source.Center, Direction);
             Vector3d dirUni = new Vector3d(Direction);
-            
+
             dirUni.Unitize();
-            
+
             Brep[] containingBrep = Brep.CreateFromSweep(extrDir.ToNurbsCurve(), Source.ToNurbsCurve(), false, RhinoDoc.ActiveDoc.ModelAbsoluteTolerance);
             Brep differenceBrep = Brep.CreateBooleanDifference(Target, containingBrep[0], RhinoDoc.ActiveDoc.ModelAbsoluteTolerance)[0];
 

@@ -13,23 +13,20 @@ namespace TimeMachine.GH
         public ConditionType Type;
         public string TargetProperty;
         public double Effect;
-        public int SpreadRadius;
         public double SpreadDivider;
         public int StartsAfter; 
         public int EndsAfter;
 
-        public Condition(string name, ConditionType type, string targetProperty, double effect, int spreadRadius, double spreadDivider, int startsAfter, int endsAfter)
+        public Condition(string name, ConditionType type, string targetProperty, double effect, double spreadDivider, int startsAfter, int endsAfter)
         {
             this.Name = name;
             this.Type = type;
             this.TargetProperty = targetProperty;
             this.Effect = effect;
-            this.SpreadRadius = spreadRadius;
             this.SpreadDivider = spreadDivider;
             this.StartsAfter = startsAfter;
             this.EndsAfter = endsAfter;
         }
-
     }
 
     public enum ConditionType

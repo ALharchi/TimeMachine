@@ -3,13 +3,14 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace TimeMachine.GH.Components.Setup
+namespace TimeMachine.GH
 {
     public class CreateVoxelComponent : GH_Component
     {
         public CreateVoxelComponent() : base("Create Voxel", "Voxel", "Create a new Voxel", "TimeMachine", "Setup") { }
         protected override System.Drawing.Bitmap Icon { get { return Properties.Resources.iconCreateVoxel; } }
         public override Guid ComponentGuid { get { return new Guid("1b113a3a-e500-483f-a46d-011494cb6c0c"); } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {

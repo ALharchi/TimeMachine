@@ -4,15 +4,14 @@ using System;
 using System.Collections.Generic;
 using Rhino;
 
-using System.Windows.Forms;
-
-namespace TimeMachine.GH.Components.Setup
+namespace TimeMachine.GH
 {
     public class VoxelizeComponent : GH_Component
     {
         public VoxelizeComponent() : base("Voxelize", "Voxelize", "Approximate a geometry with a voxel representation", "TimeMachine", "Setup") { }
         protected override System.Drawing.Bitmap Icon { get { return Properties.Resources.iconVoxelize; } }
         public override Guid ComponentGuid { get { return new Guid("0d76bfb4-cc9c-4cb1-82f8-865d2450d898"); } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {

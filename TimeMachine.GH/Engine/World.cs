@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Rhino.Geometry;
 using Grasshopper.Kernel.Types;
 
-namespace TimeMachine.GH.Engine
+namespace TimeMachine.GH
 {
     public class World
     {
 
         public List<Voxel> Voxels;// { get; set; }
+        public List<Condition> Conditions;
         public int CurrentStep;// { get; set; }
 
 
@@ -19,9 +20,15 @@ namespace TimeMachine.GH.Engine
         private Voxel currentVoxel;
         private List<Voxel> neighboursFoundByRTree;
 
-        public World(List<Voxel> voxels)
+
+        public World()
+        { }
+
+
+        public World(List<Voxel> voxels, List<Condition> conditions)
         {
             this.Voxels = voxels;
+            this.Conditions = conditions;
             this.CurrentStep = 0;
         }
 

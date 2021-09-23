@@ -9,8 +9,9 @@ namespace TimeMachine.GH
     public class CreatePropertyComponent : GH_Component
     {
         public CreatePropertyComponent() : base("Create Property", "Property", "Add a property to a Voxel", "TimeMachine", "Setup") { }
-        protected override System.Drawing.Bitmap Icon { get { return null; } }
+        protected override System.Drawing.Bitmap Icon { get { return Properties.Resources.iconCreateProperty; } }
         public override Guid ComponentGuid { get { return new Guid("ff33d28b-85e7-475b-a76a-63166626110a"); } }
+        public override GH_Exposure Exposure { get { return GH_Exposure.tertiary; } }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
@@ -40,7 +41,11 @@ namespace TimeMachine.GH
             DA.GetData(3, ref maxValue);
             DA.GetData(4, ref kill);
 
-            Property property = new Property(name, startValue, minValue, maxValue, kill);
+
+            List<double> values = new List<double>();
+            values.Add(startValue);
+
+            Property property = new Property(name, values, minValue, maxValue, kill);
 
             DA.SetData(0, property);
         }

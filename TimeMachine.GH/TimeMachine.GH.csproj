@@ -62,8 +62,11 @@
     <Compile Include="Components\Setup\CreatePropertyComponent.cs" />
     <Compile Include="Components\Setup\CreateVoxelComponent.cs" />
     <Compile Include="Components\Setup\VoxelizeComponent.cs" />
+    <Compile Include="Components\Simulation\SimplifySimulationComponent.cs" />
     <Compile Include="Components\Simulation\TimeMachineComponent.cs" />
-    <Compile Include="Components\Simulation\ViewerComponent.cs" />
+    <Compile Include="Components\Simulation\VisualizePropertyComponent.cs" />
+    <Compile Include="Components\Utilities\CounterComponent.cs" />
+    <Compile Include="Components\Utilities\SaveViewportToFileComponent.cs" />
     <Compile Include="Engine\Condition.cs" />
     <Compile Include="Engine\Part.cs" />
     <Compile Include="Engine\Property.cs" />
@@ -78,7 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\Parameters\" />
+    <None Include="Resources\iconViewportToFile.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -91,6 +94,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconVoxelize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconCreateOmniCondition.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconCreatePlanarCondition.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconCreateProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconTimeMachine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconVisualizeProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconSimplifySimulation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconCounter.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
