@@ -11,14 +11,15 @@ namespace TimeMachine.GH
     public class World
     {
 
-        public List<Voxel> Voxels;// { get; set; }
+        public List<Voxel> Voxels;
         public List<Condition> Conditions;
-        public int CurrentStep;// { get; set; }
+        public int CurrentStep; 
 
+        public double FieldOfView;
 
         // R-Tree Helpers
         private Voxel currentVoxel;
-        private List<Voxel> neighboursFoundByRTree;
+        private List<Voxel> neighborsFoundByRTree;
 
 
         public World()
@@ -33,6 +34,7 @@ namespace TimeMachine.GH
         }
 
 
+
         public void Update()
         {
             // Build the R-Tree
@@ -42,30 +44,20 @@ namespace TimeMachine.GH
 
             foreach (Voxel voxel in Voxels)
             {
-                // Use the R-Tree to find neighbours of the current agent
+                // Use the R-Tree to find neighbors of the current agent
                 currentVoxel = voxel;
-                neighboursFoundByRTree = new List<Voxel>();
-                rTree.Search(new Sphere(voxel.Position, 1515), rTreeCallback);
-                //voxel.ComputeDesiredVelocity(neighboursFoundByRTree);
+                neighborsFoundByRTree = new List<Voxel>();
+                rTree.Search(new Sphere(voxel.Position, FieldOfView), rTreeCallback);
+                voxel.Update(neighborsFoundByRTree, Conditions);
             }
 
         }
 
-        // This function will be used by the R-Tree search function
-        // It simply stores the neighbour found by the R-Tree in the results list
         void rTreeCallback(object sender, RTreeEventArgs args)
         {
-   //         if (currentVoxel != Voxels[args.Id])
- //               neighboursFoundByRTree.Add(Voxels[args.Id]);
+            if (currentVoxel != Voxels[args.Id])
+                neighborsFoundByRTree.Add(Voxels[args.Id]);
         }
-
-        private List<int> FindAffectedVoxels()
-        {
-            List<int> indices = new List<int>();
-
-            return indices;
-        }
-
 
     }
 }

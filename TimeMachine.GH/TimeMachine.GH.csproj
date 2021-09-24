@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Components\Setup\CreateOmniConditionComponent.cs" />
     <Compile Include="Components\Setup\CreatePlanarConditionComponent.cs" />
+    <Compile Include="Components\Setup\CreatePointConditionComponent.cs" />
     <Compile Include="Components\Setup\CreatePropertyComponent.cs" />
     <Compile Include="Components\Setup\CreateVoxelComponent.cs" />
     <Compile Include="Components\Setup\VoxelizeComponent.cs" />
@@ -115,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconCounter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconCreatePointCondition.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -46,7 +46,5 @@ namespace TimeMachine.GH
 
             DA.SetData(0, voxel);
         }
-
-
     }
 }

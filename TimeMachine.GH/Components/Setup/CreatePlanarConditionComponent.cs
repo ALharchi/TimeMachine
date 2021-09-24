@@ -31,6 +31,7 @@ namespace TimeMachine.GH
         protected override void SolveInstance(IGH_DataAccess DA)
         {
 
+            /*
             ConditionType conditionType = ConditionType.Planar;
 
             Brep Target = null; Rectangle3d Source = new Rectangle3d(); Vector3d Direction = new Vector3d();
@@ -71,7 +72,7 @@ namespace TimeMachine.GH
             //A = faces;
             //B = facesCenters;
 
-
+            */
 
         }
 

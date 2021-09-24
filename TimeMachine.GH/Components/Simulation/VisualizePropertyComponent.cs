@@ -15,7 +15,7 @@ namespace TimeMachine.GH
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Simulation Results", "Simulation Results", "Simulation Results", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Simulation", "Simulation", "Simulation Results", GH_ParamAccess.item);
             pManager.AddTextParameter("Property", "Property", "Name of the property to visualize", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Step", "Step", "Which step do you want to visualize", GH_ParamAccess.item, 0);
         }
