@@ -47,6 +47,19 @@ namespace TimeMachine.GH
                 }
             }
 
+            foreach (Condition condition in conditions)
+            {
+                switch (condition.Type)
+                {
+                    case ConditionType.Omni:
+                        break;
+                    case ConditionType.Planar:
+                        break;
+                    case ConditionType.Point:
+                        break;
+                }
+            
+            }
 
         }
 

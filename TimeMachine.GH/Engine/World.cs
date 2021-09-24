@@ -10,7 +10,6 @@ namespace TimeMachine.GH
 {
     public class World
     {
-
         public List<Voxel> Voxels;
         public List<Condition> Conditions;
         public int CurrentStep; 

@@ -71,6 +71,7 @@
     <Compile Include="Engine\Condition.cs" />
     <Compile Include="Engine\Part.cs" />
     <Compile Include="Engine\Property.cs" />
+    <Compile Include="Engine\Utils.cs" />
     <Compile Include="Engine\Voxel.cs" />
     <Compile Include="Engine\World.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
