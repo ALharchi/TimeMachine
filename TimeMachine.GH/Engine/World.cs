@@ -20,10 +20,8 @@ namespace TimeMachine.GH
         private Voxel currentVoxel;
         private List<Voxel> neighborsFoundByRTree;
 
-
         public World()
         { }
-
 
         public World(List<Voxel> voxels, List<Condition> conditions)
         {
@@ -31,8 +29,6 @@ namespace TimeMachine.GH
             this.Conditions = conditions;
             this.CurrentStep = 0;
         }
-
-
 
         public void Update()
         {
@@ -49,7 +45,6 @@ namespace TimeMachine.GH
                 rTree.Search(new Sphere(voxel.Position, FieldOfView), rTreeCallback);
                 voxel.Update(neighborsFoundByRTree, Conditions);
             }
-
         }
 
         void rTreeCallback(object sender, RTreeEventArgs args)
