@@ -18,7 +18,7 @@ namespace TimeMachine.GH.Components.Setup
             pManager.AddTextParameter("Target Property", "Target Property", "Specify which property is affected by this condition.", GH_ParamAccess.item);
             pManager.AddPointParameter("Source", "Source", "Source of the condition (Point3D)", GH_ParamAccess.item);
             pManager.AddNumberParameter("Effect", "Effect", "Effect on this condition each step", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Divider", "Divider", "Spread divider", GH_ParamAccess.item, 0.5);
+            pManager.AddNumberParameter("Divider", "Divider", "Spread divider", GH_ParamAccess.item, 1);
             pManager.AddIntegerParameter("Start", "Start", "Start at a specific iteration", GH_ParamAccess.item, 0);
             pManager.AddIntegerParameter("End", "End", "End after N iterations (0 to keep forever)", GH_ParamAccess.item, 0);
         }

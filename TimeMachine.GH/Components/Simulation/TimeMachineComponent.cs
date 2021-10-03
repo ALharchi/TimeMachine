@@ -13,11 +13,14 @@ namespace TimeMachine.GH
         public override Guid ComponentGuid { get { return new Guid("988da09d-65b6-40e8-8d55-7d146477b352"); } }
         public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
 
+        World myWorld;
+
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Voxels", "Voxels", "Specify the Voxels to Simulate", GH_ParamAccess.list);
             pManager.AddGenericParameter("Conditions", "Conditions", "Add Conditions to the Simulation", GH_ParamAccess.list);
             pManager.AddIntegerParameter("Steps", "Steps", "Simulation Steps", GH_ParamAccess.item, 10);
+            pManager.AddNumberParameter("Neighbourhood Radius", "Neighbourhood Radius", "Neighbourhood Radius", GH_ParamAccess.item, 100);
             pManager.AddBooleanParameter("Simulate", "Simulate", "Run the Simulation", GH_ParamAccess.item, false);
         }
 
@@ -31,27 +34,28 @@ namespace TimeMachine.GH
             List<Voxel> inputVoxels = new List<Voxel>();
             List<Condition> conditions = new List<Condition>();
             int stepsCount = 0;
+            double neighbourhoodRadius = 0.0;
             bool simulate = false;
 
-            DA.GetDataList(0, inputVoxels);
-            DA.GetDataList(1, conditions);
-            DA.GetData(2, ref stepsCount);
-            DA.GetData(3, ref simulate);
-
-            List<Voxel> voxels = new List<Voxel>();
-
-            foreach (Voxel v in inputVoxels)
-            {
-                Voxel newV = v.Clone();
-                voxels.Add(newV);
-            }
-
-
-            World myWorld = new World(voxels, conditions);
+            DA.GetDataList("Voxels", inputVoxels);
+            DA.GetDataList("Conditions", conditions);
+            DA.GetData("Steps", ref stepsCount);
+            DA.GetData<double>("Neighbourhood Radius", ref neighbourhoodRadius);
+            DA.GetData("Simulate", ref simulate);
 
             if (simulate)
             {
-                for (int i = 0; i > stepsCount; i++)
+                List<Voxel> voxels = new List<Voxel>();
+
+                foreach (Voxel v in inputVoxels)
+                {
+                    Voxel newV = v.Clone();
+                    voxels.Add(newV);
+                }
+
+                this.myWorld = new World(voxels, conditions, neighbourhoodRadius);
+
+                for (int i = 0; i < stepsCount; i++)
                 {
                     myWorld.Update();
                 }   
@@ -59,8 +63,13 @@ namespace TimeMachine.GH
 
             DA.SetData(0, myWorld);
 
-        }
+            if (myWorld == null)
+                this.Message = "Not initiated";
+            else
+                this.Message = "Voxels: " + myWorld.Voxels.Count.ToString() +
+                               "\n Conditions: " + myWorld.Conditions.Count.ToString() +
+                               "\n Steps: " + myWorld.CurrentStep.ToString();
 
-        
+        }
     }
 }

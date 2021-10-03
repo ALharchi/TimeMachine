@@ -30,5 +30,13 @@ namespace TimeMachine.GH
         {
             return new Property(this.Name, new List<double>(this.Values), this.MinValue, this.MaxValue, this.KillThreshold);
         }
+
+        public override string ToString()
+        {
+            return "Property Name: " + Name
+                 + "\nMinimum Value: " + MinValue.ToString()
+                 + "\nMaximum Value: " + MaxValue.ToString()
+                 + "\nKillThreshold: " + KillThreshold.ToString();
+        }
     }
 }

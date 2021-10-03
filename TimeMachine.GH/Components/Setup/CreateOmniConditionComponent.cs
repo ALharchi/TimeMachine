@@ -17,9 +17,8 @@ namespace TimeMachine.GH
             pManager.AddTextParameter("Name", "Name", "Condition Name", GH_ParamAccess.item, "Default");
             pManager.AddTextParameter("Target Property", "Target Property", "Specify which property is affected by this condition.", GH_ParamAccess.item);
             pManager.AddNumberParameter("Effect", "Effect", "Effect on this condition each step", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Divider", "Divider", "Spread divider", GH_ParamAccess.item, 0.5);
             pManager.AddIntegerParameter("Start", "Start", "Start at a specific iteration", GH_ParamAccess.item, 0);
-            pManager.AddIntegerParameter("End", "End", "End after N iterations (0 to keep forever)", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("End", "End", "End after N iterations (-1 to keep running forever)", GH_ParamAccess.item, -1);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -34,20 +33,19 @@ namespace TimeMachine.GH
             double effect = 0.0;
             double divider = 0.0;
             int start = 0;
-            int end = 0;
+            int end = -1;
 
             DA.GetData("Name", ref name);
             DA.GetData("Target Property", ref target);
             DA.GetData("Effect", ref effect);
-            DA.GetData("Divider", ref divider);
             DA.GetData("Start", ref start);
             DA.GetData("End", ref end);
 
             Condition omniCondition = new Condition(name, ConditionType.Omni, target, effect, divider, start, end);
 
             DA.SetData(0, omniCondition);
+            this.Message = name;
         }
-
 
     }
 }

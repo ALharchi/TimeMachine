@@ -3,21 +3,22 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 using Rhino;
+using System.Linq;
 
 namespace TimeMachine.GH
 {
-    public class ResultComponent : GH_Component
+    public class GetPropertyComponent : GH_Component
     {
-        public ResultComponent() : base("Visualize Property", "Visualize Property", "Visualize a property evolution through time.","TimeMachine", "Simulation") { }
-        protected override System.Drawing.Bitmap Icon { get { return Properties.Resources.iconVisualizeProperty; } }
+        public GetPropertyComponent() : base("Get Property", "Get Property", "Visualize a property evolution through time.", "TimeMachine", "Simulation") { }
+        protected override System.Drawing.Bitmap Icon { get { return Properties.Resources.iconGetProperty; } }
         public override Guid ComponentGuid { get { return new Guid("41654c22-03b8-4809-bac0-7aebbaebd799"); } }
         public override GH_Exposure Exposure { get { return GH_Exposure.primary; } }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Simulation", "Simulation", "Simulation Results", GH_ParamAccess.item);
-            pManager.AddTextParameter("Property", "Property", "Name of the property to visualize", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Step", "Step", "Which step do you want to visualize", GH_ParamAccess.item, 0);
+            pManager.AddTextParameter("Property", "Property", "Name of the property to get", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Step", "Step", "Which step do you want to get", GH_ParamAccess.item, 0);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -37,18 +38,34 @@ namespace TimeMachine.GH
             DA.GetData(2, ref step);
 
 
-            List<double> outputValues = new List<double>();
-            
-            if (step > myWorld.CurrentStep)
+            List<dynamic> outputValues = new List<dynamic>();
+
+            if (step > myWorld.CurrentStep - 1)
             {
                 this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "This step doesn't exist in this simulation!");
                 return;
             }
 
+            foreach (Voxel v in myWorld.Voxels)
+            {
+                Property targetProp = v.Properties.Where(property => property.Name == propertyName).FirstOrDefault();
+
+                if (targetProp == null)
+                {
+                    outputValues.Add(null);
+                }
+                else
+                {
+                    outputValues.Add(targetProp.Values[step]);
+                }
+
+
+            }
+
+
+            /*
             for (int i = 0; i <= step; i++)
             {
-
-                
                 // we need to get the property index
                 Property property = new Property();
 
@@ -78,9 +95,9 @@ namespace TimeMachine.GH
                 }
                 
             }
-
+            */
             DA.SetDataList(0, outputValues);
-
+            this.Message = "Current step: " + step.ToString();
         }
     }
 }

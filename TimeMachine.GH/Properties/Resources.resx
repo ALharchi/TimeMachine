@@ -136,6 +136,12 @@
   <data name="iconCreateVoxel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconCreateVoxel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="iconGetProperty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconGetProperty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="iconGetStatus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconGetStatus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="iconSimplifySimulation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconSimplifySimulation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -144,9 +150,6 @@
   </data>
   <data name="iconViewportToFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconViewportToFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="iconVisualizeProperty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconVisualizeProperty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="iconVoxelize" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\iconVoxelize.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

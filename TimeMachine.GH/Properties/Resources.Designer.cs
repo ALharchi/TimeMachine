@@ -123,6 +123,26 @@ namespace TimeMachine.GH.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap iconGetProperty {
+            get {
+                object obj = ResourceManager.GetObject("iconGetProperty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconGetStatus {
+            get {
+                object obj = ResourceManager.GetObject("iconGetStatus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconSimplifySimulation {
             get {
                 object obj = ResourceManager.GetObject("iconSimplifySimulation", resourceCulture);
@@ -146,16 +166,6 @@ namespace TimeMachine.GH.Properties {
         internal static System.Drawing.Bitmap iconViewportToFile {
             get {
                 object obj = ResourceManager.GetObject("iconViewportToFile", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap iconVisualizeProperty {
-            get {
-                object obj = ResourceManager.GetObject("iconVisualizeProperty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

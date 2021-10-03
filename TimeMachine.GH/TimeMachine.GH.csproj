@@ -65,7 +65,8 @@
     <Compile Include="Components\Setup\VoxelizeComponent.cs" />
     <Compile Include="Components\Simulation\SimplifySimulationComponent.cs" />
     <Compile Include="Components\Simulation\TimeMachineComponent.cs" />
-    <Compile Include="Components\Simulation\VisualizePropertyComponent.cs" />
+    <Compile Include="Components\Simulation\GetStatusComponent.cs" />
+    <Compile Include="Components\Simulation\GetPropertyComponent.cs" />
     <Compile Include="Components\Utilities\CounterComponent.cs" />
     <Compile Include="Components\Utilities\SaveViewportToFileComponent.cs" />
     <Compile Include="Engine\Condition.cs" />
@@ -120,6 +121,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconCreatePointCondition.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconGetProperty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconGetStatus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

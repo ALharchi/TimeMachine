@@ -48,6 +48,8 @@ namespace TimeMachine.GH
             Property property = new Property(name, values, minValue, maxValue, kill);
 
             DA.SetData(0, property);
+
+            this.Message = name;
         }
 
     }

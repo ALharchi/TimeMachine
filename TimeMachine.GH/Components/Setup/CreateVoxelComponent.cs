@@ -3,6 +3,10 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 
+using Grasshopper;
+using Grasshopper.Kernel.Types;
+using Grasshopper.Kernel.Special;
+
 namespace TimeMachine.GH
 {
     public class CreateVoxelComponent : GH_Component
@@ -45,6 +49,8 @@ namespace TimeMachine.GH
             Voxel voxel = new Voxel(position, clonedProperties, lifeSpan);
 
             DA.SetData(0, voxel);
+
+            this.Message = "Properties: " + voxel.Properties.Count.ToString();
         }
     }
 }
