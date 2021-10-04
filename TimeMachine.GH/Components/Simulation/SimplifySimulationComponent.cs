@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace TimeMachine.GH.Components.Simulation
 {
+    /*
     public class SimplifySimulationComponent : GH_Component
     {
         public SimplifySimulationComponent() : base("Simplify Simulation", "Simplify Simulation", "Simplify the simulation results for visualization purposes", "TimeMachine", "Simulation") {}
@@ -40,4 +41,5 @@ namespace TimeMachine.GH.Components.Simulation
         }
 
     }
+    */
 }

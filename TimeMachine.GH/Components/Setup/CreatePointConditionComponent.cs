@@ -18,9 +18,10 @@ namespace TimeMachine.GH.Components.Setup
             pManager.AddTextParameter("Target Property", "Target Property", "Specify which property is affected by this condition.", GH_ParamAccess.item);
             pManager.AddPointParameter("Source", "Source", "Source of the condition (Point3D)", GH_ParamAccess.item);
             pManager.AddNumberParameter("Effect", "Effect", "Effect on this condition each step", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Extent", "Extent", "Extent of the condition.", GH_ParamAccess.item, 50);
             pManager.AddNumberParameter("Divider", "Divider", "Spread divider", GH_ParamAccess.item, 1);
             pManager.AddIntegerParameter("Start", "Start", "Start at a specific iteration", GH_ParamAccess.item, 0);
-            pManager.AddIntegerParameter("End", "End", "End after N iterations (0 to keep forever)", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("End", "End", "End after N iterations (0 to keep forever)", GH_ParamAccess.item, -1);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -34,6 +35,7 @@ namespace TimeMachine.GH.Components.Setup
             string target = "";
             Point3d source = new Point3d();
             double effect = 0.0;
+            double extent = 0.0;
             double divider = 0.0;
             int start = 0;
             int end = 0;
@@ -42,11 +44,12 @@ namespace TimeMachine.GH.Components.Setup
             DA.GetData("Target Property", ref target);
             DA.GetData("Source", ref source);
             DA.GetData("Effect", ref effect);
+            DA.GetData("Extent", ref extent);
             DA.GetData("Divider", ref divider);
             DA.GetData("Start", ref start);
             DA.GetData("End", ref end);
 
-            Condition pointCondition = new Condition(name, ConditionType.Point, target, effect, divider, start, end);
+            Condition pointCondition = new Condition(name, ConditionType.Point, target, source, effect, extent, divider, start, end);
 
             DA.SetData(0, pointCondition);
         }

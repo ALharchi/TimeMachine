@@ -31,7 +31,6 @@ namespace TimeMachine.GH
             string name = "";
             string target = "";
             double effect = 0.0;
-            double divider = 0.0;
             int start = 0;
             int end = -1;
 
@@ -41,7 +40,7 @@ namespace TimeMachine.GH
             DA.GetData("Start", ref start);
             DA.GetData("End", ref end);
 
-            Condition omniCondition = new Condition(name, ConditionType.Omni, target, effect, divider, start, end);
+            Condition omniCondition = new Condition(name, ConditionType.Omni, target, new Point3d(), effect, 0, 0, start, end);
 
             DA.SetData(0, omniCondition);
             this.Message = name;

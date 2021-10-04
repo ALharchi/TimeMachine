@@ -26,14 +26,14 @@ namespace TimeMachine.GH
             this.Age = 0;
         }
 
-        public void Update(List<Voxel> neighbors, List<Condition> conditions, double currentStep)
+        public void Update(List<Voxel> allVoxels, List<Condition> conditions, double currentStep)
         {
             // Adding Initial Value
             // and checking life status (updating life)
             foreach (Property p in this.Properties)
             {
                 p.Values.Add(p.Values.Last());
-                
+
 
                 // FIX THIS PLZZ
                 if (p.KillThreshold && IsAlive.Last())
@@ -52,7 +52,7 @@ namespace TimeMachine.GH
                 {
                     this.IsAlive.Add(true);
                 }
-                
+
             }
 
             // We go over the conditions to update the properties
@@ -80,21 +80,74 @@ namespace TimeMachine.GH
 
                 if (condition.Type == ConditionType.Point)
                 {
+
+                    double distanceToCondition = this.Position.DistanceTo(condition.Source);
+
+                    if (distanceToCondition < condition.Extent)
+                    {
+                        double actualEffect = condition.Effect * condition.SpreadDivider;
+                        targetProp.Values[targetProp.Values.Count - 1] = targetProp.Values.Last() + actualEffect;
+                    }
+
                     /*
-                    List<double> distanceToNeighbors = new List<double>();
+                    
                     List<double> effectReduced = new List<double>();
                     */
 
+                    //List<Voxel> affectedVoxels = new List<Voxel>();
+                    //List<double> allDistances = new List<double>();
 
-                    foreach (Voxel v in neighbors)
+                    //List<Tuple<Voxel, double>> affectedVoxels = new List<Tuple<Voxel, double>>();
+
+                    /*
+                    foreach (Voxel v in allVoxels)
                     {
-                        double distanceFromMe = this.Position.DistanceTo(v.Position);
-                        RhinoApp.WriteLine(distanceFromMe.ToString());
+                        double dist = condition.Source.DistanceTo(v.Position);
+                        if (dist < condition.Extent)
+                        {
+                            affectedVoxels.Add(Tuple.Create(v, dist));
+                            //allDistances.Add(condition.Source.DistanceTo(v.Position));
+                            //affectedVoxels.Add(v);
+                        }
+                    }
+                    //allDistances.Sort();
+                    //allVoxels.Sort()
+
+                    //List<Tuple<Voxel, double>> affectedVoxelsSorted =  affectedVoxels.Sort
+
+                    affectedVoxels.Sort((a, b) => a.Item2.CompareTo(b.Item2));
+
+
+                    List<Voxel> cleanAffectedVoxels = new List<Voxel>();
+                    foreach (var i in affectedVoxels)
+                    {
+                        cleanAffectedVoxels.Add(i.Item1);
                     }
 
-                    RhinoApp.WriteLine("==");
 
 
+                    int counter = 0;
+                    foreach (Voxel v in cleanAffectedVoxels)
+                    {
+
+                        double actualEffect = ((counter * 100) / cleanAffectedVoxels.Count) * condition.SpreadDivider * condition.Effect ;
+                        targetProp.Values[targetProp.Values.Count - 1] = targetProp.Values.Last() + actualEffect;
+
+                        /*
+                        double distanceFromCondition = condition.Source.DistanceTo(v.Position);
+
+                        if (distanceFromCondition > condition.Extent)
+                        {
+                            //double val = distanceFromCondition  * 
+
+                            //double actualEffect =  * condition.SpreadDivider;
+                            //targetProp.Values[targetProp.Values.Count - 1] = targetProp.Values.Last() + actualEffect;
+                        }
+                        //RhinoApp.WriteLine(distanceFromMe.ToString());
+
+                        counter++;
+                    }
+                        */
 
                 }
             }

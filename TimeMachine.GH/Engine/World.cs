@@ -18,8 +18,8 @@ namespace TimeMachine.GH
         public double FieldOfView = 100;
 
         // R-Tree Helpers
-        private Voxel currentVoxel;
-        private List<Voxel> neighborsFoundByRTree;
+        //private Voxel currentVoxel;
+        //private List<Voxel> neighborsFoundByRTree;
 
         public World() { }
 
@@ -35,18 +35,18 @@ namespace TimeMachine.GH
         {
 
             // Build the R-Tree
-            RTree rTree = new RTree();
-            for (int i = 0; i < Voxels.Count; i++)
-            {
-                rTree.Insert(Voxels[i].Position, i);
-            }
+            //RTree rTree = new RTree();
+            //for (int i = 0; i < Voxels.Count; i++)
+            //{
+            //    rTree.Insert(Voxels[i].Position, i);
+            //}
 
             foreach (Voxel voxel in Voxels)
             {
                 // Use the R-Tree to find neighbors of the current voxel
-                currentVoxel = voxel;
-                neighborsFoundByRTree = new List<Voxel>();
-                rTree.Search(new Sphere(voxel.Position, FieldOfView), rTreeCallback);
+                //currentVoxel = voxel;
+                //neighborsFoundByRTree = new List<Voxel>();
+                //rTree.Search(new Sphere(voxel.Position, FieldOfView), rTreeCallback);
 
 
                 List<Condition> applicableConditions = new List<Condition>();
@@ -63,18 +63,21 @@ namespace TimeMachine.GH
                     applicableConditions.Add(cond);
                 }
 
-                voxel.Update(neighborsFoundByRTree, applicableConditions, CurrentStep);
+                //voxel.Update(neighborsFoundByRTree, applicableConditions, CurrentStep);
+                // Update with only omni conditions
+                voxel.Update(this.Voxels, applicableConditions, CurrentStep);
             }
 
             CurrentStep++;
         }
 
+        /*
         void rTreeCallback(object sender, RTreeEventArgs args)
         {
             if (currentVoxel != Voxels[args.Id])
                 neighborsFoundByRTree.Add(Voxels[args.Id]);
         }
-
+        */
 
 
 

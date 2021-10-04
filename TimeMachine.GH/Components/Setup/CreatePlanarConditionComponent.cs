@@ -6,6 +6,8 @@ using Rhino;
 
 namespace TimeMachine.GH
 {
+
+    /*
     public class CreatePlanarConditionComponent : GH_Component
     {
         public CreatePlanarConditionComponent() : base("Create Planar Condition", "Create Planar Condition", "Create a planar condition.", "TimeMachine", "Setup") { }
@@ -72,10 +74,10 @@ namespace TimeMachine.GH
             //A = faces;
             //B = facesCenters;
 
-            */
 
         }
 
-
     }
+    
+*/
 }
