@@ -40,7 +40,7 @@ namespace TimeMachine.GH
             DA.GetData("Start", ref start);
             DA.GetData("End", ref end);
 
-            Condition omniCondition = new Condition(name, ConditionType.Omni, target, new Point3d(), effect, 0, 0, start, end);
+            Condition omniCondition = new Condition(name, target, start, end);
 
             DA.SetData(0, omniCondition);
             this.Message = name;

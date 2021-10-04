@@ -26,7 +26,7 @@ namespace TimeMachine.GH
             this.Age = 0;
         }
 
-        public void Update(List<Voxel> allVoxels, List<Condition> conditions, double currentStep)
+        public void Update(List<Voxel> allVoxels, List<Voxel> neighbors, List<Condition> conditions)
         {
             // Adding Initial Value
             // and checking life status (updating life)
@@ -35,7 +35,7 @@ namespace TimeMachine.GH
                 p.Values.Add(p.Values.Last());
 
 
-                // FIX THIS PLZZ
+                // FIX THIS
                 if (p.KillThreshold && IsAlive.Last())
                 {
                     if (p.Values.Last() < p.MinValue || p.Values.Last() > p.MaxValue)
@@ -65,95 +65,38 @@ namespace TimeMachine.GH
                 if (targetProp == null)
                     continue;
 
+                // Omni is pretty straightforward
                 if (condition.Type == ConditionType.Omni)
                 {
                     targetProp.Values[targetProp.Values.Count - 1] = targetProp.Values.Last() + condition.Effect;
                     //targetProp.Values.Add(targetProp.Values.Last() + condition.Effect);
                 }
 
+                // If it is from one point, we reduce by distance
+                if (condition.Type == ConditionType.Point)
+                {
+                    double reducedEffect = condition.GetReducedEffect(this);
+                    targetProp.Values[targetProp.Values.Count - 1] = targetProp.Values.Last() + reducedEffect;
+                }
 
-                // Not sure if I'll implement Planar?
-                if (condition.Type == ConditionType.Planar)
+                // Tricky
+                if (condition.Type == ConditionType.Environment)
                 {
 
                 }
 
-                if (condition.Type == ConditionType.Point)
+                // Not sure if I'll implement Planar? (Maybe in the future)
+                if (condition.Type == ConditionType.Planar)
                 {
-
-                    double distanceToCondition = this.Position.DistanceTo(condition.Source);
-
-                    if (distanceToCondition < condition.Extent)
-                    {
-                        double actualEffect = condition.Effect * condition.SpreadDivider;
-                        targetProp.Values[targetProp.Values.Count - 1] = targetProp.Values.Last() + actualEffect;
-                    }
-
-                    /*
-                    
-                    List<double> effectReduced = new List<double>();
-                    */
-
-                    //List<Voxel> affectedVoxels = new List<Voxel>();
-                    //List<double> allDistances = new List<double>();
-
-                    //List<Tuple<Voxel, double>> affectedVoxels = new List<Tuple<Voxel, double>>();
-
-                    /*
-                    foreach (Voxel v in allVoxels)
-                    {
-                        double dist = condition.Source.DistanceTo(v.Position);
-                        if (dist < condition.Extent)
-                        {
-                            affectedVoxels.Add(Tuple.Create(v, dist));
-                            //allDistances.Add(condition.Source.DistanceTo(v.Position));
-                            //affectedVoxels.Add(v);
-                        }
-                    }
-                    //allDistances.Sort();
-                    //allVoxels.Sort()
-
-                    //List<Tuple<Voxel, double>> affectedVoxelsSorted =  affectedVoxels.Sort
-
-                    affectedVoxels.Sort((a, b) => a.Item2.CompareTo(b.Item2));
-
-
-                    List<Voxel> cleanAffectedVoxels = new List<Voxel>();
-                    foreach (var i in affectedVoxels)
-                    {
-                        cleanAffectedVoxels.Add(i.Item1);
-                    }
-
-
-
-                    int counter = 0;
-                    foreach (Voxel v in cleanAffectedVoxels)
-                    {
-
-                        double actualEffect = ((counter * 100) / cleanAffectedVoxels.Count) * condition.SpreadDivider * condition.Effect ;
-                        targetProp.Values[targetProp.Values.Count - 1] = targetProp.Values.Last() + actualEffect;
-
-                        /*
-                        double distanceFromCondition = condition.Source.DistanceTo(v.Position);
-
-                        if (distanceFromCondition > condition.Extent)
-                        {
-                            //double val = distanceFromCondition  * 
-
-                            //double actualEffect =  * condition.SpreadDivider;
-                            //targetProp.Values[targetProp.Values.Count - 1] = targetProp.Values.Last() + actualEffect;
-                        }
-                        //RhinoApp.WriteLine(distanceFromMe.ToString());
-
-                        counter++;
-                    }
-                        */
 
                 }
             }
         }
 
-
+        /// <summary>
+        /// Returns a copy of the voxel
+        /// </summary>
+        /// <returns></returns>
         public Voxel Clone()
         {
             List<Property> clonedProperties = new List<Property>();
@@ -167,13 +110,11 @@ namespace TimeMachine.GH
             return new Voxel(new Point3d(this.Position), clonedProperties, this.LifeSpan);
         }
 
-
         public override string ToString()
         {
             return "Voxel Position: " + Position.ToString()
                 + "\nProperties: " + this.Properties.Count.ToString();
         }
-
 
         public Property FindTargetPropertyByName(string name)
         {

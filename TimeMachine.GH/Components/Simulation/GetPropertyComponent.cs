@@ -24,6 +24,8 @@ namespace TimeMachine.GH
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddNumberParameter("Values", "Values", "Values at the given timestep", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Minimum", "Minimum", "Minimum Value of the property over all the voxels.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Maximum", "Maximum", "Minimum Value of the property over all the voxels.", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -39,12 +41,15 @@ namespace TimeMachine.GH
 
 
             List<dynamic> outputValues = new List<dynamic>();
+            List<double> globalValues = new List<double>();
 
             if (step > myWorld.CurrentStep - 1)
             {
                 this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "This step doesn't exist in this simulation!");
                 return;
             }
+
+
 
             foreach (Voxel v in myWorld.Voxels)
             {
@@ -57,47 +62,28 @@ namespace TimeMachine.GH
                 else
                 {
                     outputValues.Add(targetProp.Values[step]);
-                }
 
-
-            }
-
-
-            /*
-            for (int i = 0; i <= step; i++)
-            {
-                // we need to get the property index
-                Property property = new Property();
-
-                int ind = 0;
-                foreach (Property propIter in myWorld.Voxels[i].Properties)
-                {
-                    if (propIter.Name == propertyName)
+                    for (int i = 0; i < myWorld.CurrentStep; i++)
                     {
-                        property = propIter;
-                        break;
+                        globalValues.Add(targetProp.Values[i]);
                     }
-                    ind++;
                 }
-
-                if (property.Name == null)
-                {
-                    this.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "The property doesn't exist in this simulation!");
-                    return;
-                }
-
-                // Finally we populate our values from each voxel
-                foreach (Voxel v in myWorld.Voxels)
-                {
-                    // we get the property value in that particular timestep
-                    double voxelPropertyValue = v.Properties[ind].Values[i];
-                    outputValues.Add(voxelPropertyValue);
-                }
-                
             }
-            */
+
+
+
+            globalValues.Sort();
+
+
             DA.SetDataList(0, outputValues);
-            this.Message = "Current step: " + step.ToString();
+            DA.SetData(1, globalValues.First());
+            DA.SetData(2, globalValues.Last());
+
+
+            this.Message = "Current step: " + step.ToString() + 
+                "\nMin: " + globalValues.First().ToString() +
+                "\nMax: " + globalValues.Last().ToString("0.000")
+                ;
         }
     }
 }
