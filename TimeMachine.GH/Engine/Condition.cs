@@ -43,14 +43,28 @@ namespace TimeMachine.GH
         /// <summary>
         /// Create an OMNI type condition
         /// </summary>
-        public Condition(string name, string targetProperty, int startsAfter, int endsAfter)
+        public Condition(string name, string targetProperty, double effect, int startsAfter, int endsAfter, bool j)
         {
             this.Name = name;
             this.TargetProperty = targetProperty;
             this.StartsAfter = startsAfter;
             this.EndsAfter = endsAfter;
-
+            this.Effect = effect;
             this.Type = ConditionType.Omni;
+        }
+
+        /// <summary>
+        /// Create a Diffusion type condition
+        /// </summary>
+        public Condition(string name, string targetProperty, double spreadDivider, int startsAfter, int endsAfter)
+        {
+            this.Name = name;
+            this.TargetProperty = targetProperty;
+            this.SpreadDivider = spreadDivider;
+            this.StartsAfter = startsAfter;
+            this.EndsAfter = endsAfter;
+
+            this.Type = ConditionType.Diffusion;
         }
 
         public double GetReducedEffect(Voxel v)
@@ -69,6 +83,22 @@ namespace TimeMachine.GH
         }
 
 
+        public double GetMeanEffect(List<Voxel> neighbors)
+        {
+
+            double meanValue = 0;
+            foreach (Voxel neighbor in neighbors)
+            {
+                Property pr = neighbor.FindTargetPropertyByName(this.TargetProperty);
+                meanValue += pr.Values.Last();
+            }
+            meanValue /= neighbors.Count;
+
+            return meanValue * this.SpreadDivider;
+
+
+        }
+
         public override string ToString()
         {
             return "Condition Name: " + Name
@@ -86,8 +116,7 @@ namespace TimeMachine.GH
     {
         Point,
         Omni,
-        Planar,
-        Environment
+        Diffusion
     }
 
 

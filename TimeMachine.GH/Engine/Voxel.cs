@@ -15,8 +15,9 @@ namespace TimeMachine.GH
         public List<bool> IsAlive { get; set; }
         public int LifeSpan { get; set; }
         public int Age { get; set; }
+        public bool FixedProperties;
 
-        public Voxel(Point3d position, List<Property> properties, int LifeSpan)
+        public Voxel(Point3d position, List<Property> properties, int LifeSpan, bool fixedProperties)
         {
             this.Position = position;
             this.Properties = properties;
@@ -24,6 +25,7 @@ namespace TimeMachine.GH
             this.IsAlive = new List<bool>();
             this.IsAlive.Add(true);
             this.Age = 0;
+            this.FixedProperties = fixedProperties;
         }
 
         public void Update(List<Voxel> allVoxels, List<Voxel> neighbors, List<Condition> conditions)
@@ -65,6 +67,9 @@ namespace TimeMachine.GH
                 if (targetProp == null)
                     continue;
 
+                if (this.FixedProperties)
+                    continue;
+
                 // Omni is pretty straightforward
                 if (condition.Type == ConditionType.Omni)
                 {
@@ -80,15 +85,18 @@ namespace TimeMachine.GH
                 }
 
                 // Tricky
-                if (condition.Type == ConditionType.Environment)
+                if (condition.Type == ConditionType.Diffusion)
                 {
 
-                }
+                    if (neighbors.Count > 0)
+                    {
+                        double meanEffect = condition.GetMeanEffect(neighbors) * targetProp.Multiplier;
 
-                // Not sure if I'll implement Planar? (Maybe in the future)
-                if (condition.Type == ConditionType.Planar)
-                {
-
+                        if (meanEffect < targetProp.MaxValue && meanEffect > targetProp.MinValue)
+                        {
+                            targetProp.Values[targetProp.Values.Count - 1] = meanEffect;//targetProp.Values.Last() + meanEffect;
+                        }
+                    }
                 }
             }
         }
@@ -107,7 +115,7 @@ namespace TimeMachine.GH
                 clonedProperties.Add(clonedProperty);
             }
 
-            return new Voxel(new Point3d(this.Position), clonedProperties, this.LifeSpan);
+            return new Voxel(new Point3d(this.Position), clonedProperties, this.LifeSpan, this.FixedProperties);
         }
 
         public override string ToString()

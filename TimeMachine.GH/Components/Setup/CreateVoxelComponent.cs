@@ -21,6 +21,7 @@ namespace TimeMachine.GH
             pManager.AddPointParameter("Position", "Position", "Voxel Position in space", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Lifespan", "Lifespan", "Lifespan of the voxel. It will die after N iterations. 0 = Unlimited lifespan", GH_ParamAccess.item, 0);
             pManager.AddGenericParameter("Properties", "Properties", "Properties of the Voxel", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Fixed Properties", "Fixed Properties", "Fixed Properties", GH_ParamAccess.item, false);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -33,10 +34,13 @@ namespace TimeMachine.GH
             Point3d position = new Point3d();
             int lifeSpan = 0;
             List<Property> properties = new List<Property>();
+            bool fixedProperties = false;
+
 
             DA.GetData(0, ref position);
             DA.GetData(1, ref lifeSpan);
             DA.GetDataList(2, properties);
+            DA.GetData(3, ref fixedProperties);
 
 
             List<Property> clonedProperties = new List<Property>();
@@ -46,7 +50,7 @@ namespace TimeMachine.GH
                 clonedProperties.Add(p.Clone());
             }
 
-            Voxel voxel = new Voxel(position, clonedProperties, lifeSpan);
+            Voxel voxel = new Voxel(position, clonedProperties, lifeSpan, fixedProperties);
 
             DA.SetData(0, voxel);
 

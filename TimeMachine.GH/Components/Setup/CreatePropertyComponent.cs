@@ -20,6 +20,7 @@ namespace TimeMachine.GH
             pManager.AddNumberParameter("Min", "Min", "Minimum Property Value", GH_ParamAccess.item, 0);
             pManager.AddNumberParameter("Max", "Max", "Maximum Property Value", GH_ParamAccess.item, 100);
             pManager.AddBooleanParameter("Kill Threshold", "Kill Threshold", "Kill the Parent Voxel if Value is outside the specificed Interval", GH_ParamAccess.item, false);
+            pManager.AddNumberParameter("Multiplier", "Multiplier", "Multiplier", GH_ParamAccess.item, 1);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -34,18 +35,20 @@ namespace TimeMachine.GH
             double minValue = 0;
             double maxValue = 0;
             bool kill = false;
+            double multiplier = 0.0;
 
             DA.GetData(0, ref name);
             DA.GetData(1, ref startValue);
             DA.GetData(2, ref minValue);
             DA.GetData(3, ref maxValue);
             DA.GetData(4, ref kill);
+            DA.GetData(5, ref multiplier);
 
 
             List<double> values = new List<double>();
             values.Add(startValue);
 
-            Property property = new Property(name, values, minValue, maxValue, kill);
+            Property property = new Property(name, values, minValue, maxValue, kill, multiplier);
 
             DA.SetData(0, property);
 
